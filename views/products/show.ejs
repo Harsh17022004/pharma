@@ -1,0 +1,165 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <div class="container mb-3">
+    <div class="card m-auto" style="width: 30rem; height: 30rem">
+      <img
+        src="<%= product.p_img.link %>"
+        class="card-img-top w-50 m-auto"
+        alt="..."
+        style="height: 40%; object-fit: contain"
+      />
+      <div class="card-body">
+        <h5 class="card-title"><%= product.p_name %></h5>
+        <p class="card-text"><i>MRP</i> : &dollar;<%= product.mrp %></p>
+        <p class="card-text">
+          <i>Expiry Date</i> : <%= product.p_exp.toLocaleDateString() %>
+        </p>
+        <p class="card-text"><%= product.p_qyt %></p>
+        <p class="card-text"><%= product.p_desc %></p>
+        <p class="card-text">
+          <small class="text-body-secondary"
+            >Last updated <%= product.created_at.toLocaleString() %></small
+          >
+        </p>
+      </div>
+      <% if( currUser && currUser._id.equals(product.owner)) {%>
+      <div class="btns d-flex">
+        <form action="/products/<%= product._id %>/edit">
+          <button class="Btn">Edit</button>
+        </form>
+        <form
+          action="/products/<%= product._id %>?_method=DELETE"
+          method="post"
+        >
+          <button class="Btn">Delete</button>
+        </form>
+      </div>
+      <% } %>
+    </div>
+    <div class="container m-4">
+      <div class="reviewCont p-3">
+        <% if(currUser){ %>
+        <div class="reviewCreate w-50 m-auto">
+          <div class="btns d-flex justify-content-between">
+            <button
+              class="btn btn-outline-primary mb-3"
+              data-bs-toggle="collapse"
+              data-bs-target="#reviewCollapse"
+              id="reviewToggle"
+            >
+              + Review
+            </button>
+            <button
+              type="button"
+              class="btn-close invisible"
+              id="reviewClose"
+              data-bs-toggle="collapse"
+              data-bs-target="#reviewCollapse"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form
+            action="/products/<%= product._id %>/review"
+            method="post"
+            class="needs-validation collapse"
+            id="reviewCollapse"
+            novalidate
+          >
+            <div class="mb-3">
+              <fieldset class="starability-slot">
+                <legend>Rating:</legend>
+                <input
+                  type="radio"
+                  id="no-rate"
+                  class="input-no-rate"
+                  name="review[rating]"
+                  value="0"
+                  checked
+                  aria-label="No rating."
+                />
+                <input
+                  type="radio"
+                  id="second-rate1"
+                  name="review[rating]"
+                  value="1"
+                />
+                <label for="second-rate1" title="Terrible">1 star</label>
+                <input
+                  type="radio"
+                  id="second-rate2"
+                  name="review[rating]"
+                  value="2"
+                />
+                <label for="second-rate2" title="Not good">2 stars</label>
+                <input
+                  type="radio"
+                  id="second-rate3"
+                  name="review[rating]"
+                  value="3"
+                />
+                <label for="second-rate3" title="Average">3 stars</label>
+                <input
+                  type="radio"
+                  id="second-rate4"
+                  name="review[rating]"
+                  value="4"
+                />
+                <label for="second-rate4" title="Very good">4 stars</label>
+                <input
+                  type="radio"
+                  id="second-rate5"
+                  name="review[rating]"
+                  value="5"
+                />
+                <label for="second-rate5" title="Amazing">5 stars</label>
+              </fieldset>
+            </div>
+            <div class="mb-3">
+              <label for="msg" class="form-label">Review</label>
+              <input
+                type="text"
+                class="form-control"
+                id="msg"
+                placeholder="Share your experience"
+                name="review[msg]"
+                required
+              />
+              <div class="invalid-feedback">Please write your message</div>
+            </div>
+            <button class="Btn">Rate</button>
+          </form>
+        </div>
+        <% } %> <% if(product.reviews.length){ %>
+        <div class="reviews mt-3">
+          <div class="row">
+            <% for(review of product.reviews){ %>
+            <div class="mb-3 col-lg-3 col-md-4">
+              <div class="card border">
+                <div class="card-body">
+                  <h5 class="card-title">User</h5>
+                  <p
+                    class="card-title starability-result"
+                    data-rating="<%= review.rating %>"
+                  ></p>
+                  <p class="card-text"><%= review.msg %></p>
+                  <% if(currUser && currUser._id.equals(review.author)){ %>
+                  <form
+                    action="/products/<%= product._id %>/review/<%= review._id %>?_method=DELETE"
+                    method="post"
+                  >
+                    <button class="btn btn-outline-primary">
+                      Delete Review
+                    </button>
+                  </form>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</body>

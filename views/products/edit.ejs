@@ -1,0 +1,98 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<body>
+  <div class="row mt-4">
+    <div class="col-6 offset-3">
+      <form
+        method="post"
+        action="/products/<%= product._id %>?_method=PATCH"
+        class="needs-validation"
+        novalidate
+        enctype="multipart/form-data"
+      >
+        <div class="mb-3">
+          <label for="name" class="form-label">Product Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            value="<%= product.p_name %>"
+            name="product[p_name]"
+            required
+          />
+        </div>
+        <div class="row">
+          <div class="mb-3 col-md-6">
+            <label for="qyt" class="form-label">Product Qyt information</label>
+            <input
+              type="text"
+              class="form-control"
+              id="qyt"
+              value="<%= product.p_qyt %>"
+              name="product[p_qyt]"
+              required
+            />
+          </div>
+          <div class="mb-3 col-md-6">
+            <label for="price" class="form-label">Price</label>
+            <input
+              type="text"
+              class="form-control"
+              id="price"
+              value="<%= product.mrp %>"
+              name="product[mrp]"
+              required
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3 col-md-6">
+            <img
+              src="<%= originalImg %>"
+              alt=""
+              style="width: 100%; object-fit: contain"
+            />
+          </div>
+          <div class="mb-3 col-md-6">
+            <label for="img" class="form-label">Upload New Image</label>
+            <input
+              type="file"
+              class="form-control"
+              id="img"
+              name="product[p_img]"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3 col">
+            <label for="e-date" class="form-label">Expiry Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="e-date"
+              value="<%= product.p_exp.toLocaleDateString('af-ZA') %>"
+              name="product[p_exp]"
+              required
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="desc" class="form-label"
+            >Describe about your product</label
+          >
+          <textarea
+            class="form-control"
+            id="desc"
+            cols="30"
+            rows="10"
+            name="product[p_desc]"
+            required
+          >
+<%= product.p_desc %></textarea
+          >
+        </div>
+        <button type="submit" class="btn btn-primary">Edit</button>
+      </form>
+    </div>
+  </div>
+</body>

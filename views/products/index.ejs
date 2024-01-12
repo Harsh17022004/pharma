@@ -1,0 +1,20 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+  <div class="container-fluid text-center p-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+      <% for(product of products){ %>
+      <a href="/products/<%= product._id %>" class="col mt-3">
+        <div class="card card_index">
+          <img src="<%= product.p_img.link %>" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title"><strong><%= product.p_name %></strong></h5>
+            <p class="card-text">&dollar;<%= product.mrp %></p>
+            <p class="card-text"><%= product.p_qyt %></p>
+            <p class="card-text"><%= product.p_desc %></p>
+          </div>
+        </div>
+      </a>
+      <% } %>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,37 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<body>
+  <div class="row">
+    <div class="col-4 offset-4">
+      <form action="/login" method="post" class="needs-validation" novalidate>
+        <h1 class="h3 mb-3 fw-normal">Please Login</h1>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            placeholder="name@example.com"
+            name="username"
+            required
+          />
+          <div class="invalid-feedback">Please Enter valid Email</div>
+          <label for="username">Email Username</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Password"
+            name="password"
+            required
+          />
+          <div class="invalid-feedback">Please Enter valid Password</div>
+          <label for="password">Password</label>
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
+        <p class="mt-5 mb-3 text-body-secondary">© 2017–2023</p>
+      </form>
+    </div>
+  </div>
+</body>

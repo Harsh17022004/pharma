@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.hero {
+  min-height: 100vh;
+  margin: 2vw 0;
+}
+
+.card {
+  border: 0;
+}
+
+.card_index {
+  width: 20rem;
+  height: 20rem;
+}
+
+.card_index img {
+  height: 30%;
+  object-fit: contain;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.Btn {
+  border: 0;
+  outline: 0;
+  background-color: rgb(132, 132, 180);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+}
