@@ -18,6 +18,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -29,8 +30,27 @@ app.use(cookieParser("secretCode"));
 
 app.engine("ejs", engine);
 
+mongoUrl = process.env.ATLAS_LINK;
+
+main();
+async function main() {
+  mongoose.connect(mongoUrl);
+}
+const store = MongoStore.create({
+  mongoUrl: mongoUrl,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+
+store.on("error", () => {
+  console.log("Error occured in mongo session store", err);
+});
+
 const sessionOptions = {
-  secret: "SecretCode",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -49,13 +69,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-mongoUrl = process.env.ATLAS_LINK;
-
-main();
-async function main() {
-  mongoose.connect(mongoUrl);
-}
 
 // locals middleware
 app.use((req, res, next) => {
