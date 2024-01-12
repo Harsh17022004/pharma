@@ -17,6 +17,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const mongoose = require("mongoose");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -48,6 +49,13 @@ passport.use(new LocalStrategy(User.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+mongoUrl = process.env.ATLAS_LINK;
+
+main();
+async function main() {
+  mongoose.connect(mongoUrl);
+}
 
 // locals middleware
 app.use((req, res, next) => {

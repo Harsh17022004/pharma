@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 const reviewSchema = require("./review.js");
 
-main();
-async function main() {
-  mongoose.connect("mongodb://127.0.0.1:27017/pharma");
-}
-
 const productSchema = new mongoose.Schema({
   p_name: String,
   p_desc: String,

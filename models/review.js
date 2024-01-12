@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
 
-main();
-async function main() {
-  mongoose.connect("mongodb://127.0.0.1:27017/pharma");
-}
 const reviewSchema = new mongoose.Schema({
   msg: String,
   rating: Number,
