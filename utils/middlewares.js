@@ -14,7 +14,7 @@ module.exports.validateProduct = (req, res, next) => {
 };
 
 module.exports.validateReview = (req, res, next) => {
-  let { error } = schemaReview.validate(req.body);
+  let { error } = reviewSchema.validate(req.body);
   if (error) {
     const errDets = error.details.map((el) => el.message).join(",");
     throw new ExpressError(400, errDets);
